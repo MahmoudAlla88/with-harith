@@ -318,7 +318,7 @@ return (
     )}
 
     {/* Update Task Form */}
-    {showUpdateForm && (
+    {/* {showUpdateForm && (
       <div className="card-form">
         <div className="space-y-4">
           <input
@@ -356,7 +356,50 @@ return (
           </div>
         </div>
       </div>
-    )}
+    )} */}
+{showUpdateForm && (
+  <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+    <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Update Task</h3>
+    <div className="space-y-4">
+      <input
+        type="text"
+        value={updatedTitle}
+        onChange={(e) => setUpdatedTitle(e.target.value)}
+        placeholder="Updated title"
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+      />
+      <textarea
+        value={updatedDescription}
+        onChange={(e) => setUpdatedDescription(e.target.value)}
+        placeholder="Updated description"
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none h-24"
+      />
+      <select
+        value={updatedPriority}
+        onChange={(e) => setUpdatedPriority(e.target.value)}
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none bg-white"
+      >
+        <option value="P2">High</option>
+        <option value="P1">Medium</option>
+        <option value="P0">Low</option>
+      </select>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={handleUpdateTask}
+          className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg transition duration-300"
+        >
+          Save
+        </button>
+        <button
+          onClick={() => setShowUpdateForm(false)}
+          className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-6 rounded-lg transition duration-300"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
     {/* Add User Form */}
     {showAddUserForm && (

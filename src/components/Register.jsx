@@ -259,11 +259,149 @@
 // //   set,
 // // } from "../firebase";
 
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// import { useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import { auth, createUserWithEmailAndPassword, database, ref, set } from "../firebase"; // Firebase imports
+// import axios from "axios"; // Importing Axios
+// import "./Register.css"; 
+
+// const Register = () => {
+//   const [formData, setFormData] = useState({
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     password: "",
+//     confirmPassword: "", 
+//     role: "user", // Add role as "user" by default
+//   });
+//   const [error, setError] = useState("");
+//   const [successMessage, setSuccessMessage] = useState(""); // Add success message state
+//   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+//   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+//   const navigate = useNavigate();
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({ ...formData, [name]: value });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setError("");
+//     setSuccessMessage("");
+
+//     // Check if passwords match
+//     if (formData.password !== formData.confirmPassword) {
+//       setError("Passwords do not match!");
+//       return;
+//     }
+
+//     try {
+//       // Register the user with Firebase
+//       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+//       const user = userCredential.user;
+
+//       // Save user data to Firebase Realtime Database
+//       await set(ref(database, `users/${user.uid}`), {
+//         firstName: formData.firstName,
+//         lastName: formData.lastName,
+//         email: formData.email,
+//         role: formData.role, // Save the role
+//       });
+
+//       setSuccessMessage("Account created successfully!"); // Show success message
+//       console.log("User registered:", user);
+//       setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
+//     } catch (error) {
+//       setError(error.message);
+//       console.error("Error registering user:", error.message);
+//     }
+//   };
+
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
+//       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+//         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create a New Account</h2>
+//         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+//         {successMessage && <p className="text-green-500 text-sm mb-4">{successMessage}</p>} {/* Display success message */}
+//         <form onSubmit={handleSubmit}>
+//           <div className="mb-4">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">First Name</label>
+//             <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+//           </div>
+//           <div className="mb-4">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">Last Name</label>
+//             <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+//           </div>
+//           <div className="mb-4">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email Address</label>
+//             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+//           </div>
+//           <div className="mb-6 relative">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password</label>
+//             <input type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+//             {/* <button
+//               type="button"
+//               onClick={() => setShowPassword(!showPassword)}
+//               className="eye-icon"
+//             >
+//               👁️
+//             </button> */}
+//           </div>
+//           <div className="mb-6 relative">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">Confirm Password</label>
+//             <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+//             {/* <button
+//               type="button"
+//               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+//               className="eye-icon"
+//             >
+//               👁️
+//             </button> */}
+//           </div>
+//           <div className="mb-4">
+//             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">Role</label>
+//             <select name="role" value={formData.role} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+//               <option value="user">Team Member</option>
+//               <option value="manager">Manager</option>
+//             </select>
+//           </div>
+//           <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Create Account</button>
+//         </form>
+//         <p className="mt-4 text-center text-gray-600">
+//           Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Register;
+
+
+
+
+
+
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, createUserWithEmailAndPassword, database, ref, set } from "../firebase"; // Firebase imports
-import axios from "axios"; // Importing Axios
-import "./Register.css"; 
+import { auth, createUserWithEmailAndPassword, database, ref, set } from "../firebase";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -271,13 +409,11 @@ const Register = () => {
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: "", 
-    role: "user", // Add role as "user" by default
+    confirmPassword: "",
+    role: "user",
   });
   const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState(""); // Add success message state
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -290,87 +426,61 @@ const Register = () => {
     setError("");
     setSuccessMessage("");
 
-    // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
 
     try {
-      // Register the user with Firebase
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       const user = userCredential.user;
 
-      // Save user data to Firebase Realtime Database
       await set(ref(database, `users/${user.uid}`), {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
-        role: formData.role, // Save the role
+        role: formData.role,
       });
 
-      setSuccessMessage("Account created successfully!"); // Show success message
-      console.log("User registered:", user);
-      setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
+      setSuccessMessage("Account created successfully!");
+      setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
       setError(error.message);
-      console.error("Error registering user:", error.message);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create a New Account</h2>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        {successMessage && <p className="text-green-500 text-sm mb-4">{successMessage}</p>} {/* Display success message */}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="flex max-w-4xl w-full bg-white rounded-lg shadow-2xl overflow-hidden">
+        <div className="hidden md:flex bg-gradient-to-br from-blue-400 to-blue-800 flex-1 items-center justify-center p-8">
+          <div className="text-white text-center">
+            <h2 className="text-4xl font-light leading-relaxed mb-6">
+              Create an account to manage your tasks efficiently and stay organized with ease!
+            </h2>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email Address</label>
-            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
-          </div>
-          <div className="mb-6 relative">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password</label>
-            <input type={showPassword ? "text" : "password"} id="password" name="password" value={formData.password} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
-            {/* <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="eye-icon"
-            >
-              👁️
-            </button> */}
-          </div>
-          <div className="mb-6 relative">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">Confirm Password</label>
-            <input type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
-            {/* <button
-              type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="eye-icon"
-            >
-              👁️
-            </button> */}
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">Role</label>
-            <select name="role" value={formData.role} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div className="w-full md:w-1/2 p-8">
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Sign up for Celebration</h2>
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+          {successMessage && <p className="text-green-500 text-sm mb-4">{successMessage}</p>}
+          <form onSubmit={handleSubmit}>
+            <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} className="w-full px-4 py-2 border rounded-lg mb-4" required />
+            <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} className="w-full px-4 py-2 border rounded-lg mb-4" required />
+            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="w-full px-4 py-2 border rounded-lg mb-4" required />
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} className="w-full px-4 py-2 border rounded-lg mb-4" required />
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} className="w-full px-4 py-2 border rounded-lg mb-4" required />
+            <select name="role" value={formData.role} onChange={handleChange} className="w-full px-4 py-2 border rounded-lg mb-4">
               <option value="user">Team Member</option>
               <option value="manager">Manager</option>
             </select>
-          </div>
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">Create Account</button>
-        </form>
-        <p className="mt-4 text-center text-gray-600">
-          Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
-        </p>
+            <button type="submit" className="w-full bg-gradient-to-r from-green-500 to-teal-600 text-white py-2 px-4 rounded-lg hover:shadow-lg transition duration-300">
+              Sign Up
+            </button>
+          </form>
+          <p className="mt-6 text-center text-sm text-gray-600">
+            Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

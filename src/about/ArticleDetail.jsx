@@ -148,7 +148,7 @@ const ArticleDetail = () => {
     <div className="article-detail-container">
       {article.image && <img src={article.image} alt={article.title} />}
       <h2>{article.title}</h2>
-      <p>{article.content}</p>
+      <p>{article.description}</p>
       <Link to="/articles" className="back-button">Back to Articles</Link>
     </div>
     <Footer/>

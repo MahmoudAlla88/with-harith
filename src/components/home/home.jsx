@@ -8,11 +8,15 @@ import WorkSteps from "./workstep";
 
 
 const Home = () => {
+  const handleWelcomeComplete = () => {
+    console.log("Welcome process is complete!");
+    
+  };
   return (
     <>
     
       <Navbar />
-      <Wellcome/>
+      <Wellcome onWelcomeComplete={handleWelcomeComplete}/>
       {/* <main className="container mx-auto px-4"> */}
         <Landing/>
         <Features />
