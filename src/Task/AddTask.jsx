@@ -521,9 +521,9 @@ const AddTask = () => {
                                         value={formData.priority}
                                         onChange={handleChange}
                                     >
-                                        <option value="P0">P0</option>
-                                        <option value="P1">P1</option>
-                                        <option value="P2">P2</option>
+                                        <option value="P0">low</option>
+                                        <option value="P1">meduim</option>
+                                        <option value="P2">high</option>
                                     </select>
                                 </div>
                             </div>

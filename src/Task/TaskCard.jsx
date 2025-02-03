@@ -4,7 +4,7 @@ import { ref, get, set, update } from '../firebase';
 import axios from 'axios';
 import { database ,onValue, auth} from '../firebase';
 import './task.css'
-
+// import { Calendar, Users, Clock, CheckCircle } from 'lucide-react';
 
 const TaskCard = ({
     id,
@@ -191,217 +191,438 @@ const TaskCard = ({
 
 
 
-    return (
-      <div className="card1">
-        {/* Header Section with Status and Priority */}
-        {/* style={{backgroundColor:`${getStatusColor(status)}`}} */}
-        <div className="card-header1" >
-          <div>
-          <h1 className="priority1">{priority}</h1></div>
-          <div className="status-btn"></div>
-          <h3 className="text-sm font-semibold">{title}</h3>
+
+
+
+
+return (
+  <div className="card1">
+    {/* Header Section with Status and Priority */}
+    {/* style={{backgroundColor:`${getStatusColor(status)}`}} */}
+    <div className="card-header1" >
+      <div>
+      <h1 className="priority1">{priority}</h1></div>
+      <div className="status-btn"></div>
+      <h2 className="text-sm font-semibold">{title}</h2>
+    </div>
+
+    {/* Description Section */}
+    <div className="card-description1">
+    <p className="text-xs">{description}</p>
+      <div className="dates1">
+        <div className="date-item1">
+          {/* <div className="flex flex-col items-center flex-1">
+            <p className="text12">Start Date</p>
+            <p className="date1">{startDatee}</p>
+          </div> */}
+           <div className="flex justify-between text-xs mt-2">
+      <span>Start: {getDate(startDate)}</span>
+      <span style={{width:"50px"}}></span>
+      <span>End: {getDate(endDate)}</span>
+    </div>
+          {/* <div className="h-8 w-px bg-gray-200 mx-4"></div> */}
+          {/* <div className="flex flex-col items-center flex-1">
+            <p className="text12">End Date</p>
+            <p className="date1">{endDatee}</p>
+          </div> */}
         </div>
-    
-        {/* Description Section */}
-        <div className="card-description1">
-        <p className="text-xs">{description}</p>
-          <div className="dates1">
-            <div className="date-item1">
-              {/* <div className="flex flex-col items-center flex-1">
-                <p className="text12">Start Date</p>
-                <p className="date1">{startDatee}</p>
-              </div> */}
-               <div className="flex justify-between text-xs mt-2">
-          <span>Start: {getDate(startDate)}</span>
-          <span style={{width:"50px"}}></span>
-          <span>End: {getDate(endDate)}</span>
+      </div>
+    </div>
+
+    {/* Status Button Section */}
+    <div className="card-status-btn1">
+      <button
+        style={{ background: getStatusColor(status) }}
+        onClick={() => setShowStatusSelect(!showStatusSelect)}
+        className="w-full py-3 px-4 rounded-xl font-medium transition-all duration-300 hover:shadow-md"
+      >
+        {newStatus}
+      </button>
+    </div>
+
+    {/* Status Select Dropdown */}
+    {showStatusSelect && (
+      <div className="px-6 pt-3">
+        <select
+          className="w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+          id="status"
+          name="status"
+          value={newStatus}
+          onChange={handleStatusChange}
+        >
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+          <option value="Deployed">Deployed</option>
+          <option value="Deferred">Deferred</option>
+        </select>
+      </div>
+    )}
+
+    {/* Users Section */}
+    <div className="card-users1">
+      <div className="user-info1">
+        <p className="text12">{assignee}</p>
+        <div className="count1">
+          <span className="circle1"></span>
+          <p className="text12">{assignedUsersCount} Users</p>
         </div>
-              {/* <div className="h-8 w-px bg-gray-200 mx-4"></div> */}
-              {/* <div className="flex flex-col items-center flex-1">
-                <p className="text12">End Date</p>
-                <p className="date1">{endDatee}</p>
-              </div> */}
-            </div>
-          </div>
-        </div>
-    
-        {/* Status Button Section */}
-        <div className="card-status-btn1">
-          <button
-            style={{ background: getStatusColor(status) }}
-            onClick={() => setShowStatusSelect(!showStatusSelect)}
-            className="w-full py-3 px-4 rounded-xl font-medium transition-all duration-300 hover:shadow-md"
+      </div>
+      <button
+        onClick={() => setShowUserList(!showUserList)}
+        className="user-btn1"
+      >
+        {showUserList ? 'Hide Users' : 'Show Users'}
+      </button>
+    </div>
+
+    {/* User List */}
+    {showUserList && (
+      <div className="card-user-list1">
+        <h3 className="font-semibold text-gray-800 mb-3">Assigned Users</h3>
+        <ul className="space-y-2">
+          {assignedUsers.map((email, index) => (
+            <li key={index} className="user-list-item1">
+              {email}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {/* Buttons Section */}
+    {isManager && (
+      <div className="card-buttons1">
+        <button
+          onClick={() => setShowAddUserForm(true)}
+          className="add-btn1"
+         style={{ background: getStatusColor(status) }}
+        >
+          Add User
+        </button>
+        <button
+          onClick={() => setShowUpdateForm(true)}
+          className="update-btn1"
+          style={{ background: getStatusColor(status) }}
+        >
+          Update
+        </button>
+        <button
+          onClick={handleSoftDelete}
+          className="delete-btn1"
+          style={{ background: getStatusColor(status) }}
+        >
+          Delete
+        </button>
+      </div>
+    )}
+
+    {/* Update Task Form */}
+    {showUpdateForm && (
+      <div className="card-form">
+        <div className="space-y-4">
+          <input
+            type="text"
+            value={updatedTitle}
+            onChange={(e) => setUpdatedTitle(e.target.value)}
+            placeholder="Updated title"
+          />
+          <textarea
+            value={updatedDescription}
+            onChange={(e) => setUpdatedDescription(e.target.value)}
+            placeholder="Updated description"
+          />
+          <select
+            value={updatedPriority}
+            onChange={(e) => setUpdatedPriority(e.target.value)}
           >
-            {newStatus}
-          </button>
-        </div>
-    
-        {/* Status Select Dropdown */}
-        {showStatusSelect && (
-          <div className="px-6 pt-3">
-            <select
-              className="w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-              id="status"
-              name="status"
-              value={newStatus}
-              onChange={handleStatusChange}
-            >
-              <option value="Pending">Pending</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-              <option value="Deployed">Deployed</option>
-              <option value="Deferred">Deferred</option>
-            </select>
-          </div>
-        )}
-    
-        {/* Users Section */}
-        <div className="card-users1">
-          <div className="user-info1">
-            <p className="text12">{assignee}</p>
-            <div className="count1">
-              <span className="circle1"></span>
-              <p className="text12">{assignedUsersCount} Users</p>
-            </div>
-          </div>
-          <button
-            onClick={() => setShowUserList(!showUserList)}
-            className="user-btn1"
-          >
-            {showUserList ? 'Hide Users' : 'Show Users'}
-          </button>
-        </div>
-    
-        {/* User List */}
-        {showUserList && (
-          <div className="card-user-list1">
-            <h3 className="font-semibold text-gray-800 mb-3">Assigned Users</h3>
-            <ul className="space-y-2">
-              {assignedUsers.map((email, index) => (
-                <li key={index} className="user-list-item1">
-                  {email}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-    
-        {/* Buttons Section */}
-        {isManager && (
-          <div className="card-buttons1">
+            <option value="p2">high</option>
+            <option value="P1">medium</option>
+            <option value="P0">high</option>
+          </select>
+          <div className="flex justify-between">
             <button
-              onClick={() => setShowAddUserForm(true)}
-              className="add-btn1"
-             style={{ background: getStatusColor(status) }}
+              onClick={handleUpdateTask}
+              className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-medium"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setShowUpdateForm(false)}
+              className="cancel-btn"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Add User Form */}
+    {showAddUserForm && (
+      <div className="card-form1">
+        <div className="space-y-4">
+          <input
+            type="email"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+            placeholder="Enter user email"
+          />
+          <div className="flex justify-between">
+            <button
+              onClick={handleAddUser}
+              className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-medium"
             >
               Add User
             </button>
             <button
-              onClick={() => setShowUpdateForm(true)}
-              className="update-btn1"
-              style={{ background: getStatusColor(status) }}
+              onClick={() => setShowAddUserForm(false)}
+              className="cancel-btn1"
             >
-              Update
-            </button>
-            <button
-              onClick={handleSoftDelete}
-              className="delete-btn1"
-              style={{ background: getStatusColor(status) }}
-            >
-              Delete
+              Cancel
             </button>
           </div>
-        )}
-    
-        {/* Update Task Form */}
-        {showUpdateForm && (
-          <div className="card-form">
-            <div className="space-y-4">
-              <input
-                type="text"
-                value={updatedTitle}
-                onChange={(e) => setUpdatedTitle(e.target.value)}
-                placeholder="Updated title"
-              />
-              <textarea
-                value={updatedDescription}
-                onChange={(e) => setUpdatedDescription(e.target.value)}
-                placeholder="Updated description"
-              />
-              <select
-                value={updatedPriority}
-                onChange={(e) => setUpdatedPriority(e.target.value)}
-              >
-                <option value="p2">P2</option>
-                <option value="P1">P1</option>
-                <option value="P0">P0</option>
-              </select>
-              <div className="flex justify-between">
-                <button
-                  onClick={handleUpdateTask}
-                  className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-medium"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={() => setShowUpdateForm(false)}
-                  className="cancel-btn"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-    
-        {/* Add User Form */}
-        {showAddUserForm && (
-          <div className="card-form1">
-            <div className="space-y-4">
-              <input
-                type="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-                placeholder="Enter user email"
-              />
-              <div className="flex justify-between">
-                <button
-                  onClick={handleAddUser}
-                  className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-medium"
-                >
-                  Add User
-                </button>
-                <button
-                  onClick={() => setShowAddUserForm(false)}
-                  className="cancel-btn1"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
-    );
+    )}
+  </div>
+);
+
+}
+
+
+
+
+// return (
+//   <div className="max-w-sm rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 mt-8">
+//     {/* Header Section with Status and Priority */}
+//     {/* style={{backgroundColor:`${getStatusColor(status)}`}} */}
+//     < div className="p-5 bg-teal-600 relative mb-4">
+//     <div className="flex justify-between items-start">
+//     <div className="space-y-1">
+//     <span className="inline-block px-2.5 py-1 bg-teal-500 text-white text-xs rounded-full">
+//   task
+//         </span>
+//         <h2 className="text-white text-2xl font-semibold"> {title}</h2>
+//         </div>
+
+//         <div className="flex gap-2">
+//         <span className="bg-white/90 px-2.5 py-1 rounded-full text-sm font-medium text-teal-700 flex items-center gap-1">
+//           {/* <Clock className="w-4 h-4" /> */}
+//           {priority}
+//         </span>
+//       </div>
+//     </div> 
+      
+// <div/>
+
+
     
-//    
-};
+
+//     {/* Description Section */}
+//     <div className="p-5 bg-gray-50 border-b border-gray-100 mx-4 rounded-lg mb-4">
+//     <div className="flex items-center gap-2 mb-2">
+//       <CheckCircle className="w-4 h-4 text-teal-600" />
+//       <h3 className="text-gray-700 font-medium">Description</h3>
+//     </div>
+//     <p className="text-gray-600 leading-relaxed">
+//      {description}
+//     </p>
+//   </div>
+
+
+// {/* Main Content */}
+// <div className="p-5 space-y-6">
+//     {/* Dates Section */}
+//     <div className="grid grid-cols-2 gap-4">
+//       <div className="bg-gray-50 p-3 rounded-lg">
+//         <p className="text-gray-500 text-sm mb-1">Start Date</p>
+//         <div className="flex items-center text-gray-700">
+//           <Calendar className="w-4 h-4 mr-2 text-teal-600" />
+//           <span className="font-medium">{getDate(startDate)}</span>
+//         </div>
+//       </div>
+//       <div className="bg-gray-50 p-3 rounded-lg">
+//         <p className="text-gray-500 text-sm mb-1">End Date</p>
+//         <div className="flex items-center text-gray-700">
+//           <Calendar className="w-4 h-4 mr-2 text-teal-600" />
+//           <span className="font-medium">{getDate(endDate)}</span>
+//         </div>
+//       </div>
+//     </div>
+
+//        {/* Status Button */}
+//        <button className="w-full bg-teal-600 text-white py-2.5 px-4 rounded-lg hover:bg-teal-700 transition-colors duration-300 flex items-center justify-center gap-2 font-medium">
+//       <CheckCircle className="w-5 h-5" />
+//       {newStatus}
+//     </button>
+
+//     </div>
+
+//     {/* Status Button Section */}
+//     <div className="card-status-btn1">
+//       <button
+//         style={{ background: getStatusColor(status) }}
+//         onClick={() => setShowStatusSelect(!showStatusSelect)}
+//         className="w-full py-3 px-4 rounded-xl font-medium transition-all duration-300 hover:shadow-md"
+//       >
+//         {newStatus}
+//       </button>
+//     </div>
+
+//     {/* Status Select Dropdown */}
+//     {showStatusSelect && (
+//       <div className="px-6 pt-3">
+//         <select
+//           className="w-full bg-gray-50 border border-gray-200 text-gray-700 py-3 px-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+//           id="status"
+//           name="status"
+//           value={newStatus}
+//           onChange={handleStatusChange}
+//         >
+//           <option value="Pending">Pending</option>
+//           <option value="In Progress">In Progress</option>
+//           <option value="Completed">Completed</option>
+//           <option value="Deployed">Deployed</option>
+//           <option value="Deferred">Deferred</option>
+//         </select>
+//       </div>
+//     )}
+
+//     {/* Users Section */}
+//     <div className="card-users1">
+//       <div className="user-info1">
+//         <p className="text12">{assignee}</p>
+//         <div className="count1">
+//           <span className="circle1"></span>
+//           <p className="text12">{assignedUsersCount} Users</p>
+//         </div>
+//       </div>
+//       <button
+//         onClick={() => setShowUserList(!showUserList)}
+//         className="user-btn1"
+//       >
+//         {showUserList ? 'Hide Users' : 'Show Users'}
+//       </button>
+//     </div>
+
+//     {/* User List */}
+//     {showUserList && (
+//       <div className="card-user-list1">
+//         <h3 className="font-semibold text-gray-800 mb-3">Assigned Users</h3>
+//         <ul className="space-y-2">
+//           {assignedUsers.map((email, index) => (
+//             <li key={index} className="user-list-item1">
+//               {email}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     )}
+
+//     {/* Buttons Section */}
+//     {isManager && (
+//       <div className="card-buttons1">
+//         <button
+//           onClick={() => setShowAddUserForm(true)}
+//           className="add-btn1"
+//          style={{ background: getStatusColor(status) }}
+//         >
+//           Add User
+//         </button>
+//         <button
+//           onClick={() => setShowUpdateForm(true)}
+//           className="update-btn1"
+//           style={{ background: getStatusColor(status) }}
+//         >
+//           Update
+//         </button>
+//         <button
+//           onClick={handleSoftDelete}
+//           className="delete-btn1"
+//           style={{ background: getStatusColor(status) }}
+//         >
+//           Delete
+//         </button>
+//       </div>
+//     )}
+
+//     {/* Update Task Form */}
+//     {showUpdateForm && (
+//       <div className="card-form">
+//         <div className="space-y-4">
+//           <input
+//             type="text"
+//             value={updatedTitle}
+//             onChange={(e) => setUpdatedTitle(e.target.value)}
+//             placeholder="Updated title"
+//           />
+//           <textarea
+//             value={updatedDescription}
+//             onChange={(e) => setUpdatedDescription(e.target.value)}
+//             placeholder="Updated description"
+//           />
+//           <select
+//             value={updatedPriority}
+//             onChange={(e) => setUpdatedPriority(e.target.value)}
+//           >
+//             <option value="p2">P2</option>
+//             <option value="P1">P1</option>
+//             <option value="P0">P0</option>
+//           </select>
+//           <div className="flex justify-between">
+//             <button
+//               onClick={handleUpdateTask}
+//               className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-medium"
+//             >
+//               Save
+//             </button>
+//             <button
+//               onClick={() => setShowUpdateForm(false)}
+//               className="cancel-btn"
+//             >
+//               Cancel
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     )}
+
+//     {/* Add User Form */}
+//     {showAddUserForm && (
+//       <div className="card-form1">
+//         <div className="space-y-4">
+//           <input
+//             type="email"
+//             value={userEmail}
+//             onChange={(e) => setUserEmail(e.target.value)}
+//             placeholder="Enter user email"
+//           />
+//           <div className="flex justify-between">
+//             <button
+//               onClick={handleAddUser}
+//               className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-medium"
+//             >
+//               Add User
+//             </button>
+//             <button
+//               onClick={() => setShowAddUserForm(false)}
+//               className="cancel-btn1"
+//             >
+//               Cancel
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     )}
+//   </div>
+//   </div>
+// );
+
+// //    
+// };
 
 export default TaskCard;
-///////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

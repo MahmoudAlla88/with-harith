@@ -185,13 +185,13 @@ const Sidebar = () => {
           <span className="hidden sm:inline-block">Dashboard</span>
         </Link>
 
-        <Link
+        {/* <Link
           to="/addTask"
           className="text-white hover:text-indigo-300 flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 transition duration-200 ease-in-out"
         >
           <MdAddTask className="text-2xl" />
           <span className="hidden sm:inline-block">Add New Tasks</span>
-        </Link>
+        </Link> */}
 
         <Link
           to="/statsTask"
@@ -225,13 +225,13 @@ const Sidebar = () => {
           <span className="hidden sm:inline-block">In Progress</span>
         </Link>
 
-        <Link
+        {/* <Link
           to="/deployedTask"
           className="text-white hover:text-indigo-300 flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 transition duration-200 ease-in-out"
         >
           <MdCloudDone className="text-2xl" />
           <span className="hidden sm:inline-block">Deployed Tasks</span>
-        </Link>
+        </Link> */}
 
         <Link
           to="/deferredTask"

@@ -25,10 +25,15 @@
     background-color: #f5f5f5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
-  
+  h2 {
+    font-size: 1.4rem !important; 
+    color: #313788;
+    font-weight: bold;
+    margin-top: 20px;
+}
   .card-header1 .priority1 {
     position: absolute;
-    top: 0.75rem;
+    top: -0.25rem;
     right: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 0.75rem;
@@ -53,7 +58,7 @@
   
   /* Description Section */
   .card-description1 {
-    padding: 1.5rem;
+    padding-left: 1.5rem;
   }
   
   .card-description1 .text12 {
@@ -192,7 +197,10 @@
     flex: 1;
     padding: 0.75rem;
     border-radius: 0.75rem;
-    font-weight: 500;
+    /* font-weight: 500; */
+    font-size: small;
+    height: 35px;
+    width: 300px;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
