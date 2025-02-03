@@ -1,0 +1,105 @@
+/* ملف CSS */
+.about-us-container {
+    background-color: #a4b7de; /* لون خلفية خفيف */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  /* محتوى صفحة "من نحن" */
+  .about-us-content {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 3rem;
+    max-width: 1000px;
+    width: 100%;
+  }
+  
+  /* رأس الصفحة */
+  .about-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .about-header h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #3071cd;
+  }
+  
+  .about-header p {
+    color: #4b5563;
+    font-size: 1.125rem;
+    margin-top: 1rem;
+  }
+  
+  /* المحتوى الرئيسي */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .about-description p {
+    font-size: 1rem;
+    color: #13161b;
+    line-height: 1.6;
+  }
+  
+  /* صورة "من نحن" */
+  .about-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-image img {
+    width: 100%;
+    border-radius: 0.5rem;
+    height: 300px;
+  }
+  
+  /* فريق العمل */
+  .about-team {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  
+  .about-team h3 {
+    font-size: 2rem;
+    color: #5371dc;
+    margin-bottom: 2rem;
+  }
+  
+  .team-members {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .team-member {
+    text-align: center;
+    max-width: 250px;
+  }
+  
+  .team-member img {
+    width: 100%;
+    max-width: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+  
+  .team-member h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .team-member p {
+    color: #4b5563;
+    font-size: 1rem;
+  }
+  

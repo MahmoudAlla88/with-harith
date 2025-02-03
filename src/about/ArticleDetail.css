@@ -1,0 +1,51 @@
+.article-detail-container {
+    max-width: 800px;
+    margin: 50px auto; /* لإضافة مسافة من الأعلى والأسفل */
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #ffffff; /* خلفية بيضاء */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* ظل خفيف لإبراز المحتوى */
+    border-radius: 10px; /* زوايا دائرية */
+}
+
+.article-detail-container img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px; /* مسافة بين الصورة والنص */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* ظل للصورة */
+}
+
+h2 {
+    font-size: 2rem;
+    color: #313788; /* لون أزرق داكن */
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #000000; /* لون رمادي داكن */
+    margin-top: 20px;
+    text-align: justify; /* لمحاذاة النص بشكل مرتب */
+    line-height: 1.6; /* زيادة التباعد بين الأسطر لتحسين القراءة */
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 20px;
+    border: none;
+    background-color: #313788; /* لون الزر */
+    color: white;
+    border-radius: 8px; /* زوايا دائرية */
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* تأثيرات الانتقال */
+}
+
+.back-button:hover {
+    background-color: #574bff; /* لون الزر عند التمرير */
+    transform: scale(1.05); /* تكبير بسيط عند التمرير */
+}
