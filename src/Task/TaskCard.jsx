@@ -220,11 +220,7 @@ return (
       <span style={{width:"50px"}}></span>
       <span>End: {getDate(endDate)}</span>
     </div>
-          {/* <div className="h-8 w-px bg-gray-200 mx-4"></div> */}
-          {/* <div className="flex flex-col items-center flex-1">
-            <p className="text12">End Date</p>
-            <p className="date1">{endDatee}</p>
-          </div> */}
+        
         </div>
       </div>
     </div>
@@ -317,46 +313,7 @@ return (
       </div>
     )}
 
-    {/* Update Task Form */}
-    {/* {showUpdateForm && (
-      <div className="card-form">
-        <div className="space-y-4">
-          <input
-            type="text"
-            value={updatedTitle}
-            onChange={(e) => setUpdatedTitle(e.target.value)}
-            placeholder="Updated title"
-          />
-          <textarea
-            value={updatedDescription}
-            onChange={(e) => setUpdatedDescription(e.target.value)}
-            placeholder="Updated description"
-          />
-          <select
-            value={updatedPriority}
-            onChange={(e) => setUpdatedPriority(e.target.value)}
-          >
-            <option value="p2">high</option>
-            <option value="P1">medium</option>
-            <option value="P0">high</option>
-          </select>
-          <div className="flex justify-between">
-            <button
-              onClick={handleUpdateTask}
-              className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-medium"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setShowUpdateForm(false)}
-              className="cancel-btn"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    )} */}
+
 {showUpdateForm && (
   <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
     <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Update Task</h3>

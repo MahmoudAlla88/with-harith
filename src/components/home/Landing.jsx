@@ -1,11 +1,33 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import GoUpButton from "./GoUpButton"; // تأكد من استيراد المكون الجديد
 import "./Master.css";
 import {useNavigate }from "react-router-dom";
- 
+import { auth, signOut, onAuthStateChanged } from "../../firebase";
 const Landing = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+
+  const handleNavigation = () => {
+    if (user) {
+     
+      navigate("/AllTasks");
+    } else {
+      
+      alert("Please log in to access the tasks.");
+      
+    }
+  };
   return (
     <div>
       <div className="landing">
@@ -23,7 +45,7 @@ const Landing = () => {
               projects, our platform helps you stay on top of everything.
             </p>
             <button
-        onClick={() => navigate("/AllTasks")}
+           onClick={handleNavigation}
         className="px-8 py-3 bg-blue-600 text-white rounded-lg 
                  hover:bg-blue-700 transform hover:-translate-y-1 
                  transition-all duration-200 shadow-lg 

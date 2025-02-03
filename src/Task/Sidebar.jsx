@@ -100,7 +100,9 @@
 
 // export default Sidebar;
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { ref, get, set, update } from '../firebase'; 
+import axios from 'axios';
+import { database ,onValue, auth  } from '../firebase';
 import { Link } from "react-router-dom";
 import {
   MdDashboard,
@@ -122,6 +124,37 @@ const Sidebar = () => {
     deployed: 0,
     deferred: 0,
   });
+  const [user, setUser] = useState(null); // تعيين قيمة المستخدم من Firebase Auth
+  const [isManager, setIsManager] = useState(false); 
+
+  useEffect(() => {
+    const checkRole = async () => {
+      if (user) {
+        const userRef = ref(database, `users/${user.uid}/role`); // استخدم `userRef` هنا بدلاً من `roleRef`
+        const snapshot = await get(userRef);
+        
+        if (snapshot.exists()) {
+          const role = snapshot.val();
+          console.log(role)
+          if (role === 'manager') {
+            setIsManager(true);
+          } else {
+            setIsManager(false);
+          }
+        }
+      }
+    };
+
+    if (user) {
+      checkRole();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(setUser); // تحديث المتغير `user`
+    return () => unsubscribe();
+  }, []);
+
 
   useEffect(() => {
     const fetchTaskStats = async () => {
@@ -192,7 +225,7 @@ const Sidebar = () => {
           <MdAddTask className="text-2xl" />
           <span className="hidden sm:inline-block">Add New Tasks</span>
         </Link> */}
-
+ {isManager && (
         <Link
           to="/statsTask"
           className="text-white hover:text-indigo-300 flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 transition duration-200 ease-in-out"
@@ -200,7 +233,7 @@ const Sidebar = () => {
           <MdQueryStats className="text-2xl" />
           <span className="hidden sm:inline-block">Task Stats</span>
         </Link>
-
+)}
         <Link
           to="/completeTask"
           className="text-white hover:text-indigo-300 flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-indigo-600 transition duration-200 ease-in-out"
