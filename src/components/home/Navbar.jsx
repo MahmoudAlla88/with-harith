@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { Menu, X, User, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,30 +16,37 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await signOut(auth);
-  //     setUser(null);
-  //     navigate("/login");
-  //   } catch (error) {
-  //     console.error("Logout Error: ", error);
-  //   }
-  // };
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate("/login"); // توجيه المستخدم لصفحة تسجيل الدخول بعد تسجيل الخروج
+      navigate("/"); // توجيه المستخدم إلى الصفحة الرئيسية بعد تسجيل الخروج
+
+      // تأخير عرض SweetAlert بعد الانتقال إلى الصفحة الرئيسية
+      setTimeout(() => {
+        Swal.fire({
+          title: "Logged Out",
+          text: "You have been successfully logged out.",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+      }, 500); // تأخير بسيط لضمان تحميل الصفحة
     } catch (error) {
-      console.error("Logout Error:", error.message);
+      Swal.fire({
+        title: "Logout Error",
+        text: "There was an error while logging out. Please try again.",
+        icon: "error",
+        confirmButtonText: "Okay",
+      });
     }
   };
+
   const navLinks = [
     { path: "/", label: "Home" },
-    // { path: "/AllTasks", label: "Tasks" },
     { path: "/about", label: "About" },
     { path: "/contact", label: "Contact" },
     { path: "/Articles", label: "Articles" },
   ];
+
   const handleTasksClick = (e) => {
     if (!user) {
       e.preventDefault(); // منع الانتقال إلى الصفحة
@@ -55,6 +60,7 @@ const Navbar = () => {
       });
     }
   };
+
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg py-4">
@@ -68,10 +74,9 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center flex-grow justify-center space-x-6">
             {navLinks.map((link) => (
               <Link
-              
                 key={link.path}
                 to={link.path}
                 className="px-4 py-2 rounded-lg font-medium text-blue-100 transition-all duration-300 hover:scale-105 hover:text-white hover:bg-blue-500/20"
@@ -80,19 +85,22 @@ const Navbar = () => {
               </Link>
             ))}
 
-          {/* حماية رابط المهام */}
-          <Link
+            {/* حماية رابط المهام */}
+            <Link
               to={user ? "/AllTasks" : "#"}
               onClick={handleTasksClick}
               className="px-4 py-2 rounded-lg font-medium text-blue-100 transition-all duration-300 hover:scale-105 hover:text-white hover:bg-blue-500/20"
             >
               Tasks
             </Link>
-            {/* User Section */}
+          </div>
+
+          {/* User Section */}
+          <div className="hidden lg:flex items-center space-x-4">
             {user ? (
-              <div className="flex items-center space-x-4">
-                <Link 
-                  to="/UserProfilePage" 
+              <>
+                <Link
+                  to="/UserProfilePage"
                   className="flex items-center space-x-2 text-blue-100 hover:text-white"
                 >
                   <User className="w-5 h-5" />
@@ -102,17 +110,20 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="p-2 rounded-full text-blue-100 transition-all duration-300 hover:scale-110 hover:bg-blue-500/20 hover:text-white"
+                  className="p-2 rounded-full text-blue-100 transition-all duration-300 hover:scale-110 hover:bg-blue-500/20 hover:text-white relative group"
                 >
                   <LogOut className="w-5 h-5" />
+                  <span className="absolute left-1/2 transform -translate-x-1/2 bottom-12 opacity-0 group-hover:opacity-100 bg-black text-white text-xs rounded px-2 py-1 transition-opacity duration-300">
+                    Logout
+                  </span>
                 </button>
-              </div>
+              </>
             ) : (
               <Link
                 to="/login"
-                className="px-6 py-2 rounded-full bg-white text-blue-600 font-medium shadow-md transition-all duration-300 hover:scale-105 hover:bg-blue-50"
+                className="px-6 py-2 rounded-full bg-white text-blue-600 font-medium shadow-md transition-all duration-300 hover:scale-105 hover:bg-blue-50 hover:shadow-lg hover:text-white"
               >
-                Login
+                <div style={{ color: "blue" }}>Login</div>
               </Link>
             )}
           </div>
@@ -122,7 +133,11 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 rounded-lg text-white hover:bg-blue-500/20 transition-colors"
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
 
@@ -149,10 +164,12 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-2 px-6 py-3 w-full text-blue-100 hover:bg-blue-600 hover:text-white transition-colors"
+                  className="p-2 rounded-full text-blue-100 transition-all duration-300 hover:scale-110 hover:bg-blue-500/20 hover:text-white relative group"
                 >
                   <LogOut className="w-5 h-5" />
-                  <span>Logout</span>
+                  <span className="absolute left-1/2 transform -translate-x-1/2 bottom-12 opacity-0 group-hover:opacity-100 bg-black text-white text-xs rounded px-2 py-1 transition-opacity duration-300">
+                    Logout
+                  </span>
                 </button>
               </>
             ) : (

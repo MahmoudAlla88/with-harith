@@ -43,8 +43,8 @@ const Footer = () => {
         <div>
           <h5 className="text-xl font-bold mb-4 text-gray-100">Contact Us</h5>
           <p className="text1 text-gray-400">📧 support@taskmaster.com</p>
-          <p className="text1 text-gray-400">📞 +1 234 567 890</p>
-          <p className="text1 text-gray-400">📍 New York, USA</p>
+          <p className="text1 text-gray-400">📞 +962798837302</p>
+          <p className="text1 text-gray-400">📍 Amman ,Jordan</p>
         </div>
       </div>
   
